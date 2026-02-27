@@ -1,0 +1,24 @@
+{
+  "name": "azx-dashboard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jossoey/azx-dashboard.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Jossoey/azx-dashboard/issues"
+  },
+  "homepage": "https://github.com/Jossoey/azx-dashboard#readme",
+  "dependencies": {
+    "axios": "^1.13.5"
+  }
+}
