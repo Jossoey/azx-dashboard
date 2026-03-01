@@ -1,21 +1,32 @@
-// frontend/src/api.js
-export const loginUser = async (email, password) => {
-  try {
-    const res = await fetch("/api/login", {
+export async function loginUser(email, password) {
+  const response = await fetch(
+    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/login",
+    {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username: email, password }),
-    });
-
-    const data = await res.json();
-
-    // For dummy user, backend doesn't return a token, so we can fake it
-    if (data.success) {
-      return { success: true, token: "dummy-token", message: data.message };
-    } else {
-      return { success: false, message: data.message };
+      body: JSON.stringify({ email, password })
     }
-  } catch (err) {
-    return { success: false, message: err.message };
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error(data.message);
   }
-};
+
+  return data;
+}
+
+export async function getInventory() {
+  const response = await fetch(
+    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/inventory"
+  );
+
+  const data = await response.json();
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch inventory");
+  }
+
+  return data;
+}

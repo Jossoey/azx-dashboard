@@ -1,59 +1,82 @@
 import React, { useState } from "react";
 import { loginUser } from "../api";
-import "./Login.css";
+import "./login.css";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  // Default test credentials
-  const [email, setEmail] = useState("useradmin@gmail.com");
-  const [password, setPassword] = useState("admin1234");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    email: "useradmin@gmail.com",
+    password: "admin1234"
+  });
+
+  const [message, setMessage] = useState("");
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setSuccess("");
+    setMessage("");
+
     try {
-      const result = await loginUser(email, password);
-      if (result.success) {
-        setSuccess("Login successful!");
-        localStorage.setItem("token", result.token);
-      } else {
-        setError(result.message || "Login failed");
-      }
+      const result = await loginUser(form.email, form.password);
+      console.log("Login Success", result);
+      // Store token
+      localStorage.setItem("token", result.token);
+
+      // Redirect to inventory page
+      navigate("/inventory");
+
     } catch (err) {
-      setError(err.message || "Login failed");
+      console.log("Loggin Error", err);
+      setMessage(err.message);
     }
   };
 
   return (
     <div className="login-container">
       <h2 className="login-title">Login</h2>
+
       <form onSubmit={handleSubmit} className="login-form">
         <div className="input-group">
-          <label>Email:</label>
           <input
             type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            name="email"
+            value={form.email}
+            onChange={handleChange}
+            placeholder="Email"
             required
             className="input-field"
           />
         </div>
+
         <div className="input-group">
-          <label>Password:</label>
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            placeholder="Password"
             required
             className="input-field"
           />
         </div>
-        <button type="submit" className="login-button">Login</button>
+
+        <button type="submit" className="login-button">
+          Login
+        </button>
       </form>
-      {error && <p className="error-msg">{error}</p>}
-      {success && <p className="success-msg">{success}</p>}
+
+      {message && (
+        <p
+          className={message.includes("success") ? "success-msg" : "error-msg"}
+        >
+          {message}
+        </p>
+      )}
     </div>
   );
 };
