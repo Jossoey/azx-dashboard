@@ -8,5 +8,5 @@
 /node_modules/aws-sdk
 
 #env
-.env
+/.env
 
