@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { loginUser } from "../api";
+import { loginUser, registerUser } from "../api";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 
@@ -8,10 +8,12 @@ const Login = () => {
 
   const [form, setForm] = useState({
     email: "useradmin@gmail.com",
-    password: "admin1234"
+    password: "admin1234",
+    confirmPassword: "",
   });
 
   const [message, setMessage] = useState("");
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -22,23 +24,35 @@ const Login = () => {
     setMessage("");
 
     try {
-      const result = await loginUser(form.email, form.password);
-      console.log("Login Success", result);
-      // Store token
-      localStorage.setItem("token", result.token);
+      if (isRegistering) {
+        // Confirm password check
+        if (form.password !== form.confirmPassword) {
+          setMessage("Passwords do not match!");
+          return;
+        }
 
-      // Redirect to Main page
-      navigate("/menu");
-
+        // Register user
+        const result = await registerUser(form.email, form.password);
+        console.log("Register Success", result);
+        setMessage("Registration successful! Please login.");
+        setIsRegistering(false);
+        setForm({ email: "", password: "", confirmPassword: "" });
+      } else {
+        // Login user
+        const result = await loginUser(form.email, form.password);
+        console.log("Login Success", result);
+        localStorage.setItem("token", result.token);
+        navigate("/menu");
+      }
     } catch (err) {
-      console.log("Login Error", err);
+      console.log(isRegistering ? "Register Error" : "Login Error", err);
       setMessage(err.message);
     }
   };
 
   return (
     <div className="login-container">
-      <h2 className="login-title">Login</h2>
+      <h2 className="login-title">{isRegistering ? "Register" : "Login"}</h2>
 
       <form onSubmit={handleSubmit} className="login-form">
         <div className="input-group">
@@ -65,9 +79,32 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" className="login-button">
-          Login
-        </button>
+        {isRegistering && (
+          <div className="input-group">
+            <input
+              type="password"
+              name="confirmPassword"
+              value={form.confirmPassword}
+              onChange={handleChange}
+              placeholder="Confirm Password"
+              required
+              className="input-field"
+            />
+          </div>
+        )}
+
+        <div className="button-group">
+          <button type="submit" className="login-button">
+            {isRegistering ? "Register" : "Login"}
+          </button>
+          <button
+            type="button"
+            className="register-button"
+            onClick={() => setIsRegistering(!isRegistering)}
+          >
+            {isRegistering ? "Back to Login" : "Register"}
+          </button>
+        </div>
       </form>
 
       {message && (

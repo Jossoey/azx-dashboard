@@ -19,15 +19,24 @@
 }
 
 .input-field {
-  width: 400px;
+  width: 100%;
   padding: 8px;
   margin-top: 5px;
   border-radius: 5px;
   border: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
-.login-button {
-  width: 400px;
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.login-button,
+.register-button {
+  width: 100%;
   padding: 10px;
   background-color: #0073e6;
   color: white;
@@ -35,9 +44,11 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.2s ease;
 }
 
-.login-button:hover {
+.login-button:hover,
+.register-button:hover {
   background-color: #005bb5;
 }
 

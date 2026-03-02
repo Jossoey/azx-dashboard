@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getInventory } from "../api";
 import { useNavigate } from "react-router-dom";
+import CarRecommendation from "./CarRecommendation";
 import "./inventory.css";
 
 const Inventory = () => {
@@ -86,6 +87,8 @@ const Inventory = () => {
           </tbody>
         </table>
       </div>
+
+      <CarRecommendation />
     </div>
   );
 };

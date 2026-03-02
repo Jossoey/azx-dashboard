@@ -1,0 +1,113 @@
+/* Floating chat button */
+.chatbot-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  font-size: 24px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 50px;
+  cursor: pointer;
+  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+/* Chat popup container */
+.chatbot-popup {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 320px;
+  max-height: 450px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0px 4px 16px rgba(0,0,0,0.25);
+  overflow-y: auto;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: Arial, sans-serif;
+}
+
+/* Question / bot text bubble */
+.chatbot-bubble {
+  background-color: #f0f8ff;
+  padding: 8px 12px;
+  border-radius: 12px;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+/* Input fields inside chatbot */
+.chatbot-popup input,
+.chatbot-popup select {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
+/* Buttons inside chatbot */
+.chatbot-popup button {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  margin-right: 6px;
+}
+
+.chatbot-popup button:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+/* Recommendation result bubble */
+.recommendation-result {
+  background-color: #e6f2ff;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+/* Feature checkbox group */
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 5px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.feature-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+/* Button row */
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
