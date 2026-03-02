@@ -1,0 +1,89 @@
+.sales-container {
+  padding: 40px;
+  background: linear-gradient(to right, #f4f7fa, #e9eef5);
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sales-title {
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 30px;
+}
+
+.sales-summary {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.sales-summary ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sales-summary li {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.sales-chart {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.back-button {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.back-button:hover {
+  background-color: #2563eb;
+}
+
+.sales-charts-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.sales-chart {
+  flex: 1 1 300px;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.yearly-summary {
+  margin-bottom: 15px;
+}
+
+.sales-yearly-chart {
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.sales-monthly-chart {
+  border: 1px solid #cbd5e1; 
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}

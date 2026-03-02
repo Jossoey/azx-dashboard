@@ -73,3 +73,64 @@
   background-color: #fee2e2;
   color: #991b1b;
 }
+
+/* Filter Inputs */
+.inventory-filter {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.inventory-filter input {
+  padding: 10px 15px;
+  font-size: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  width: 220px;
+  transition: all 0.2s ease;
+}
+
+.inventory-filter input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+/* No Data Message */
+.no-data {
+  text-align: center;
+  padding: 20px;
+  font-size: 16px;
+  color: #64748b;
+  font-style: italic;
+}
+
+.back-button {
+  margin-bottom: 20px;
+  padding: 8px 16px;
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+
+.back-button:hover {
+  background-color: #2563eb;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .inventory-filter input {
+    width: 100%;
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 10px 12px;
+  }
+}

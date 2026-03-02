@@ -78,13 +78,33 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
+
+// Get inventory data
 app.get("/api/inventory", async (req, res) => {
   try {
+    // Query inventory
     const result = await pool.query("SELECT * FROM inventory ORDER BY model");
 
-    res.json(result.rows);
+    res.json(result.rows); // Return
   } catch (error) {
     console.error("Inventory error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Get sales data
+app.get("/api/sales", async (req, res) => {
+  try {
+    // Query all sales records
+    const result = await pool.query(`
+      SELECT model, quantity, sale_date
+      FROM sales
+      ORDER BY sale_date
+    `);
+
+    res.json(result.rows); // Return
+  } catch (error) {
+    console.error("Sales error:", error);
     res.status(500).json({ message: "Server error" });
   }
 });

@@ -19,7 +19,7 @@
 }
 
 .input-field {
-  width: 100%;
+  width: 400px;
   padding: 8px;
   margin-top: 5px;
   border-radius: 5px;
@@ -27,7 +27,7 @@
 }
 
 .login-button {
-  width: 100%;
+  width: 400px;
   padding: 10px;
   background-color: #0073e6;
   color: white;

@@ -27,11 +27,11 @@ const Login = () => {
       // Store token
       localStorage.setItem("token", result.token);
 
-      // Redirect to inventory page
-      navigate("/inventory");
+      // Redirect to Main page
+      navigate("/menu");
 
     } catch (err) {
-      console.log("Loggin Error", err);
+      console.log("Login Error", err);
       setMessage(err.message);
     }
   };
