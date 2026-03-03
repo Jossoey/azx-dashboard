@@ -7,7 +7,6 @@ A full-stack web application for displaying car sales data, car inventory data, 
 - **Frontend:** React + Recharts
 - **Backend:** Node.js + Express
 - **Database:** PostgreSQL
-- **Deployment Ready:** AWS Elastic Beanstalk compatible
 
 ## Features
 
