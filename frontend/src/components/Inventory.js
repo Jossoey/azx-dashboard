@@ -18,12 +18,14 @@ const Inventory = () => {
     fetchData();
   }, []);
 
+  // Determine stock is high med or low
   const getStockClass = (stock) => {
     if (stock > 20) return "stock-badge stock-high";
     if (stock > 5) return "stock-badge stock-medium";
     return "stock-badge stock-low";
   };
 
+  // Preparing data to be displayed
   const filteredInventory = inventory.filter(
     (item) =>
       item.model.toLowerCase().includes(filter.model.toLowerCase()) &&
@@ -65,6 +67,7 @@ const Inventory = () => {
             </tr>
           </thead>
           <tbody>
+            {/* Map every item in Inventory list and generate per line */}
             {filteredInventory.length > 0 ? (
               filteredInventory.map((item) => (
                 <tr key={item.id}>

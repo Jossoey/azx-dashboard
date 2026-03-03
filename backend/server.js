@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const app = express();
 
 app.use(cors({
-  origin: ["http://azx-frontend-prod.s3-website-ap-southeast-1.amazonaws.com", "d2o33hcbz5dfxx.cloudfront.net"],
+  origin: ["http://azx-frontend-prod.s3-website-ap-southeast-1.amazonaws.com"],
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
@@ -27,12 +27,12 @@ const pool = new Pool({
   },
 });
 
-// Test DB connection
+//Testing DB goor for debugging errors
 pool.connect()
   .then(() => console.log("Connected to DB"))
   .catch(err => console.error("DB connection error:", err));
 
-//Test Route
+//Testing Backend good for debugging errors
 app.get("/", (req, res) => {
   res.send("Backend is running");
 });
@@ -42,13 +42,14 @@ app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
+    // Look up for email in DB
     const result = await pool.query(
       "SELECT * FROM users WHERE email = $1",
       [email]
     );
 
     if (result.rows.length === 0) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Email not registered" });
     }
 
     const user = result.rows[0];
@@ -56,10 +57,10 @@ app.post("/api/login", async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, user.password);
 
     if (!passwordMatch) {
-      return res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Wrong password" });
     }
 
-    // Create Token
+    // Create Token for proof of authentication, can be used in the future for blocking other page if not logged in
     const token = jwt.sign(
       { id: user.id, email: user.email },
       process.env.JWT_SECRET,
@@ -95,13 +96,13 @@ app.post("/api/register", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Insert new user
+    // Insert new user into DB
     await pool.query(
       "INSERT INTO users (email, password) VALUES ($1, $2)",
       [email, hashedPassword]
     );
 
-    res.json({ success: true, message: "User registered successfully" });
+    res.json({ success: true, message: "Email registered successfully" });
   } catch (error) {
     console.error("Register error:", error);
     res.status(500).json({ message: "Server error" });
@@ -111,7 +112,7 @@ app.post("/api/register", async (req, res) => {
 // Get inventory data
 app.get("/api/inventory", async (req, res) => {
   try {
-    // Query inventory
+    // Query list of inventory
     const result = await pool.query("SELECT * FROM inventory ORDER BY model");
 
     res.json(result.rows);
@@ -153,12 +154,13 @@ app.get("/api/revenue", async (req, res) => {
       ORDER BY year DESC
     `);
 
-    // Compute YoY
+    // Format data and to ensure numeric format
     const revenueData = result.rows.map(row => ({
       year: row.year,
       total_revenue: parseInt(row.total_revenue)
     }));
 
+    // Compute YoY per year by adding yoy data at the back of revenueData
     const revenueWithGrowth = revenueData.map((r, i, arr) => {
       if (i === arr.length - 1) return { ...r, yoy: null };
       const prev = arr[i + 1].total_revenue;
@@ -233,7 +235,7 @@ app.post("/api/recommend", async (req, res) => {
     res.json({ recommendedCar: bestCar });
   } catch (error) {
     console.error("Recommendation error:", error);
-    res.status(500).json({ message: "Server error" });
+    res.status(500).json({ message: "Server error" }); 
   }
 });
 

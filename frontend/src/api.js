@@ -1,129 +1,47 @@
-export async function loginUser(email, password) {
-  const response = await fetch(
-    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/login",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password })
-    }
-  );
+import apiFetch from "./apiClient";
 
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message);
-  }
-
-  return data;
-}
-
-export async function registerUser(email, password) {
-  const response = await fetch(
-    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/register",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    }
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message);
-  }
-
-  return data;
-}
-
-export async function getInventory() {
-  const response = await fetch(
-    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/inventory"
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch inventory");
-  }
-
-  return data;
-}
-
-export async function getCarSales(year) {
-  let url = "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/sales";
-  if (year) url += `?year=${year}`;
-
-  const token = localStorage.getItem("token");
-  const response = await fetch(url, {
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": token ? `Bearer ${token}` : ""
-    }
+// Request login
+export function loginUser(email, password) {
+  return apiFetch("/api/login", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
   });
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to fetch sales data");
-  }
-
-  return data;
 }
 
-export async function getRevenueData() {
-  const token = localStorage.getItem("token");
-
-  const response = await fetch(
-    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/revenue",
-    {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": token ? `Bearer ${token}` : "",
-      },
-    }
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to fetch revenue data");
-  }
-
-  return data;
+// Register new email
+export function registerUser(email, password) {
+  return apiFetch("/api/register", {
+    method: "POST",
+    body: JSON.stringify({ email, password }),
+  });
 }
 
-// Fetch all car models (for displaying in chatbot or dropdowns)
-export async function getCarModels() {
-  const response = await fetch(
-    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/carmodels"
-  );
-
-  const data = await response.json();
-
-  if (!response.ok) {
-    throw new Error("Failed to fetch car models");
-  }
-
-  return data;
+// Get list of inventory 
+export function getInventory() {
+  return apiFetch("/api/inventory");
 }
 
-// Request a car recommendation based on user preferences
-export async function getCarRecommendation(familySize, features = []) {
-  const response = await fetch(
-    "http://azx-fullstack-env.eba-eqftqnva.ap-southeast-1.elasticbeanstalk.com/api/recommend",
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ familySize, features }),
-    }
-  );
+// Get yearly car sales
+export function getCarSales(year) {
+  let endpoint = "/api/sales";
+  if (year) endpoint += `?year=${year}`;
+  return apiFetch(endpoint);
+}
 
-  const data = await response.json();
+// Get revenue data (YoY and total revenue)
+export function getRevenueData() {
+  return apiFetch("/api/revenue");
+}
 
-  if (!response.ok) {
-    throw new Error(data.message || "Failed to get car recommendation");
-  }
+// Get all car models (for displaying in chatbot or dropdowns)
+export function getCarModels() {
+  return apiFetch("/api/carmodels");
+}
 
-  return data;
+// Get a car recommendation based on user preferences
+export function getCarRecommendation(familySize, features = []) {
+  return apiFetch("/api/recommend", {
+    method: "POST",
+    body: JSON.stringify({ familySize, features }),
+  });
 }

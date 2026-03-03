@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getCarRecommendation } from "../api";
 import "./carRecommendation.css";
 
+// What feature is available
 const featureOptions = ["TV", "sunroof", "captain seat", "luxury"];
 
 const CarRecommendation = () => {
@@ -28,14 +29,14 @@ const CarRecommendation = () => {
   const handleRecommend = async () => {
     setLoading(true);
     try {
-      const result = await getCarRecommendation(familySize, selectedFeatures);
+      const result = await getCarRecommendation(familySize, selectedFeatures, sizePref, budget);
       setRecommendedCar(result.recommendedCar);
     } catch (error) {
       console.error("Recommendation error:", error);
       alert(error.message || "Failed to get recommendation");
     }
     setLoading(false);
-    nextStep(); // move to result step
+    nextStep();
   };
 
   const handleStartOver = () => {
@@ -73,6 +74,7 @@ const CarRecommendation = () => {
                     type="number"
                     min="1"
                     value={familySize}
+                    // Set variable familySize
                     onChange={(e) => setFamilySize(parseInt(e.target.value))}
                 />
                 <div className="button-row">
@@ -92,6 +94,7 @@ const CarRecommendation = () => {
                     <input
                         type="checkbox"
                         checked={selectedFeatures.includes(feature)}
+                        // Set variables features checked
                         onChange={() => handleFeatureChange(feature)}
                     />
                     {feature}
@@ -109,6 +112,7 @@ const CarRecommendation = () => {
             {step === 3 && (
                 <>
                 <div className="chatbot-bubble">Does the client have a size preference? (Small, Medium, Large)</div>
+                {/* // Set variable sizePref */}
                 <select value={sizePref} onChange={(e) => setSizePref(e.target.value)}>
                     <option value="">No preference</option>
                     <option value="Small">Small</option>
@@ -125,6 +129,7 @@ const CarRecommendation = () => {
             {step === 4 && (
                 <>
                 <div className="chatbot-bubble">Does the client have a budget?</div>
+                {/* Set variable budget */}
                 <input
                     type="number"
                     min="0"
@@ -133,6 +138,7 @@ const CarRecommendation = () => {
                 />
                 <div className="button-row">
                     <button onClick={prevStep}>Back</button>
+                    {/* Call backend to calculate points and fetch data of the picked car model */}
                     <button onClick={handleRecommend}>Get Recommendation</button>
                 </div>
                 </>

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
 
+  // Form default value for testing purposes
   const [form, setForm] = useState({
     email: "useradmin@gmail.com",
     password: "admin1234",
@@ -95,13 +96,16 @@ const Login = () => {
 
         <div className="button-group">
           <button type="submit" className="login-button">
+            {/* Change depend on state registering or loging in */}
             {isRegistering ? "Register" : "Login"}
           </button>
+          {/* Button to change state of registering or not */}
           <button
             type="button"
             className="register-button"
             onClick={() => setIsRegistering(!isRegistering)}
           >
+            {/* Change depend on state registering or loging in */}
             {isRegistering ? "Back to Login" : "Register"}
           </button>
         </div>

@@ -25,11 +25,14 @@ const Sales = () => {
     fetchSales();
   }, []);
 
+  //Function to prepare graph data of yearly and monthly sales
   const processSalesData = (data) => {
     const monthly = {};
     const yearly = {};
-
+    
+    // Iterate through individual item in sales from database
     data.forEach((sale) => {
+      // Data transformation
       const date = new Date(sale.sale_date);
       const year = date.getFullYear();
       const month = date.toLocaleString("default", { month: "short" });
@@ -49,14 +52,14 @@ const Sales = () => {
 
     const orderedYears = [2026, 2025, 2024];
 
-    // Prepare monthly data per year
+    // Prepare monthly data per year for bar graph
     const monthlyArr = {};
     orderedYears.forEach((yr) => {
       if (monthly[yr]) monthlyArr[yr] = Object.values(monthly[yr]);
     });
     setMonthlyData(monthlyArr);
 
-    // Prepare yearly totals array
+    // Prepare yearly totals array for bar graph
     const yearlyArr = orderedYears.map((yr) => yearly[yr] || { year: yr, ModelSiji: 0, ModelLoro: 0, ModelTelu: 0 });
     setYearlyData(yearlyArr);
   };
@@ -102,14 +105,20 @@ const Sales = () => {
 
         {/* Yearly Sales Chart */}
         <div className="yearly-sales-graph">
-          <h3 style={{ marginTop: 0 }}>Yearly Sales</h3>
+          <h3 style={{ marginTop: 0 }}>Yearly Unit Sales</h3>
           <ResponsiveContainer width="100%" height={250}>
             <BarChart data={yearlyData} margin={{ top: 20, right: 20, left: 0, bottom: 5 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="year" />
               <YAxis />
               <Tooltip />
-              <Legend />
+              <Legend
+                payload={[
+                  { value: "ModelSiji", type: "square", id: "ModelSiji", color: "#2C5F34" },
+                  { value: "ModelLoro", type: "square", id: "ModelLoro", color: "#23627C" },
+                  { value: "ModelTelu", type: "square", id: "ModelTelu", color: "#23BBB7" }
+                ]}
+              />
                 <Bar dataKey="ModelSiji" fill="#2C5F34" />
                 <Bar dataKey="ModelLoro" fill="#23627C" />
                 <Bar dataKey="ModelTelu" fill="#23BBB7" />
@@ -124,7 +133,7 @@ const Sales = () => {
           (year) =>
             monthlyData[year] && (
               <div key={year} className="sales-monthly-chart">
-                <h3>{year} Monthly Sales</h3>
+                <h3>{year} Monthly Unit Sales</h3>
                 <ResponsiveContainer width="100%" height={400}>
                   <BarChart
                     data={monthlyData[year]}
@@ -134,7 +143,13 @@ const Sales = () => {
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Tooltip />
-                    <Legend />
+                    <Legend
+                      payload={[
+                        { value: "ModelSiji", type: "square", id: "ModelSiji", color: "#2C5F34" },
+                        { value: "ModelLoro", type: "square", id: "ModelLoro", color: "#23627C" },
+                        { value: "ModelTelu", type: "square", id: "ModelTelu", color: "#23BBB7" }
+                      ]}
+                    />
                       <Bar dataKey="ModelSiji" fill="#2C5F34" />
                       <Bar dataKey="ModelLoro" fill="#23627C" />
                       <Bar dataKey="ModelTelu" fill="#23BBB7" />
