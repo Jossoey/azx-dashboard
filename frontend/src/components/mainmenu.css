@@ -1,3 +1,4 @@
+/* Menu Container */
 .menu-container {
   display: flex;
   flex-direction: column;
@@ -6,30 +7,34 @@
   min-height: 100vh;
   background: linear-gradient(to right, #f4f7fa, #e9eef5);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  padding: 20px;
+  padding: 1.25rem;
+  box-sizing: border-box;
 }
 
+/* Menu Title */
 .menu-title {
-  font-size: 32px;
+  font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
   color: #1e293b;
   text-align: center;
 }
 
+/* Menu Options Container */
 .menu-options {
   display: flex;
-  gap: 30px;
+  gap: 1.875rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
+/* Menu Buttons */
 .menu-button {
-  padding: 20px 40px;
-  font-size: 18px;
+  padding: 1.25rem 2.5rem;
+  font-size: 1.125rem;
   font-weight: 600;
   border: none;
-  border-radius: 12px;
+  border-radius: 0.75rem;
   cursor: pointer;
   background-color: #3b82f6;
   color: white;
@@ -39,4 +44,37 @@
 .menu-button:hover {
   background-color: #2563eb;
   transform: scale(1.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .menu-title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .menu-button {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+  }
+
+  .menu-options {
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .menu-button {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.9375rem;
+  }
+
+  .menu-options {
+    gap: 1rem;
+  }
 }

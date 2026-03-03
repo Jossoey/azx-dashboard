@@ -1,6 +1,6 @@
 /* Page Layout */
 .inventory-container {
-  padding: 50px;
+  padding: 3.125rem;
   background: linear-gradient(to right, #f4f7fa, #e9eef5);
   min-height: 100vh;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -9,8 +9,8 @@
 /* Title */
 .inventory-title {
   text-align: center;
-  margin-bottom: 40px;
-  font-size: 32px;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #1e293b;
 }
@@ -18,26 +18,31 @@
 /* Card */
 .inventory-card {
   background: white;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  padding: 1.875rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5rem 1.5625rem rgba(0, 0, 0, 0.08);
+  overflow-x: auto; /* enable horizontal scroll if table overflows */
 }
 
 /* Table */
 .inventory-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 15px;
+  font-size: 0.9375rem;
+  min-width: 600px; /* ensures table doesn’t get too narrow */
 }
 
-.inventory-table thead {
-  background-color: #1e293b;
+.inventory-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #1e293b; /* keep header color */
   color: white;
+  z-index: 2;
 }
 
 .inventory-table th,
 .inventory-table td {
-  padding: 14px 16px;
+  padding: 0.875rem 1rem;
   text-align: left;
 }
 
@@ -52,22 +57,22 @@
 
 /* Stock Badge */
 .stock-badge {
-  padding: 6px 12px;
-  border-radius: 20px;
+  padding: 0.375rem 0.75rem;
+  border-radius: 1.25rem;
   font-weight: 600;
-  font-size: 13px;
+  font-size: 0.8125rem;
   display: inline-block;
 }
 
 .stock-high {
-  background-color: #22c55e; 
-  color: #065f46; 
+  background-color: #22c55e;
+  color: #065f46;
   font-weight: bold;
 }
 
 .stock-medium {
   background-color: #facc15;
-  color: #78350f; 
+  color: #78350f;
   font-weight: bold;
 }
 
@@ -80,43 +85,44 @@
 /* Filter Inputs */
 .inventory-filter {
   display: flex;
-  gap: 15px;
+  gap: 0.9375rem;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 1.875rem;
   flex-wrap: wrap;
 }
 
 .inventory-filter input {
-  padding: 10px 15px;
-  font-size: 14px;
+  padding: 0.625rem 0.9375rem;
+  font-size: 0.875rem;
   border: 1px solid #cbd5e1;
-  border-radius: 8px;
-  width: 220px;
+  border-radius: 0.5rem;
+  width: 13.75rem;
   transition: all 0.2s ease;
 }
 
 .inventory-filter input:focus {
   border-color: #3b82f6;
-  box-shadow: 0 0 5px rgba(59, 130, 246, 0.3);
+  box-shadow: 0 0 0.3125rem rgba(59, 130, 246, 0.3);
   outline: none;
 }
 
 /* No Data Message */
 .no-data {
   text-align: center;
-  padding: 20px;
-  font-size: 16px;
+  padding: 1.25rem;
+  font-size: 1rem;
   color: #64748b;
   font-style: italic;
 }
 
+/* Back Button */
 .back-button {
-  margin-bottom: 20px;
-  padding: 8px 16px;
+  margin-bottom: 1.25rem;
+  padding: 0.5rem 1rem;
   background-color: #3b82f6;
   color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   cursor: pointer;
   font-weight: 600;
   transition: background 0.2s;
@@ -134,45 +140,66 @@
 
   .inventory-table th,
   .inventory-table td {
-    padding: 10px 12px;
+    padding: 0.625rem 0.75rem;
+  }
+
+  .inventory-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .inventory-card {
+    padding: 1.25rem;
+  }
+
+  .stock-badge {
+    padding: 0.25rem 0.625rem;
+    font-size: 0.75rem;
+  }
+
+  .back-button {
+    padding: 0.375rem 0.75rem;
   }
 }
 
-.chatbot-button {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #007bff;
-  color: white;
-  font-size: 24px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 50px;
-  cursor: pointer;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.3);
-  z-index: 1000;
-}
+@media (max-width: 480px) {
+  .inventory-container {
+    padding: 1.5rem;
+  }
 
-.chatbot-popup {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  width: 300px;
-  max-height: 400px;
-  background: white;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0px 4px 12px rgba(0,0,0,0.2);
-  overflow-y: auto;
-  z-index: 1000;
-}
+  .inventory-title {
+    font-size: 1.25rem;
+  }
 
-.recommendation-result {
-  margin-top: 10px;
-  padding: 8px;
-  background-color: #f0f8ff;
-  border-radius: 5px;
+  .inventory-card {
+    padding: 1rem;
+  }
+
+  .inventory-filter {
+    gap: 0.5rem;
+  }
+
+  .inventory-filter input {
+    width: 100%;
+  }
+
+  .inventory-table th,
+  .inventory-table td {
+    padding: 0.5rem 0.625rem;
+    font-size: 0.8125rem;
+  }
+
+  .stock-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* Enable horizontal scrolling for small screens */
+  .inventory-card {
+    overflow-x: auto;
+  }
+
+  .inventory-table {
+    min-width: 100%;
+  }
 }
